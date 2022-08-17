@@ -22,4 +22,23 @@ quotesRouter.get('/random', (req, res, next) => {
   return res.json(quote)
 })
 
+quotesRouter.post('/', (req, res, next) => {
+  const { quote, person } = req.query
+
+  if (!quote || !person) return res.status(400).json({
+    error: 'Invalid input!'
+  })
+
+  const treatedQuote = {
+    quote,
+    person
+  }
+
+  quotes.push(treatedQuote)
+
+  return res.json({
+    quote: treatedQuote
+  })
+})
+
 module.exports = quotesRouter
